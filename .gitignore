@@ -2,4 +2,4 @@ build
 .cache
 *.so
 compile_commands.json
-
+config/configDB.json

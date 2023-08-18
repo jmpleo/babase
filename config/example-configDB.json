@@ -1,9 +1,7 @@
 {
     "connections": {
-        "123": {
-            "options": "12312"
-        },
         "ba3aero": {
+            "device": "3002",
             "options": " connect_timeout=5 dbname=ba3aero hostaddr=127.0.0.1 password=j port=5432 user=j"
         },
         "ba3base": {
