@@ -31,7 +31,7 @@ public:
     std::string getDevice           (std::string connName);
     std::string rollupOptions       (mapped_param);
     bool        connectionExists    (std::string connName)   { return !getConnectionOptions(connName).empty(); }
-    void        setConfigPath       (std::string configPath) { configPath_ = configPath; }
+    void        setConfigPath       (std::string configPath) { configPath_ = configPath; updateState(); }
 
     mapped_param getSplitedConnectionOptions(std::string connName) { return splitOptions(getConnectionOptions(connName)); }
     mapped_param splitOptions               (std::string optionsLine);
