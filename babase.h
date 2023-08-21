@@ -19,9 +19,9 @@ public:
     virtual ~BABase();
 
 public:
-    virtual bool checkScheme() = 0;
+    //virtual bool checkScheme() = 0;
     virtual bool setScheme  () = 0;
-    bool         isConnected()       { return checkScheme(); }
+    bool         isConnected()       { return setScheme(); }
     std::string  connName   () const { return connName_; }
     bool         tryConnect (std::string connName = "");
 
