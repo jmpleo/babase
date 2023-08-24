@@ -15,14 +15,18 @@ BABase::BABase(BABase&& other)
     : connName_(std::move(other.connName_))
     , conn_(std::move(other.conn_))
 {
-
 }
-
-BABase::~BABase()
-{
-
-}
-
+/*
+ * \brief Попытка соединения с базой.
+ *
+ * Настройки соединения по имени соединения передаются от config - менеджера
+ * конфигурационного файла.
+ *
+ * \param otherConnName - название соединения, с которым будет производиться попытка подключения.
+ * По умолчанию с соединением переданным при конструировании BABase.
+ * \return false - при неудачном соединении, true - соединение можно
+ * использовать
+ */
 bool BABase::tryConnect(std::string otherConnName)
 {
     connName_ = otherConnName.empty() ? connName_ : otherConnName;
@@ -46,7 +50,6 @@ bool BABase::tryConnect(std::string otherConnName)
     catch (...) {
         return false;
     }
-
 }
 
 

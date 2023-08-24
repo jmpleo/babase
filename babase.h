@@ -7,6 +7,12 @@
 
 namespace babase {
 
+/*
+ * \brief Базовый абстрактный класс для взаимодействия с бд через pqxx.
+ *
+ * Класс реализует основной метод tryConnect(), позволяющий соединиться с бд
+ * и обновить схему бд на используя виртуальный метод setScheme().
+ */
 class BABase
 {
 public:
@@ -16,7 +22,7 @@ public:
     BABase(std::string);
     BABase(BABase&&);
 
-    virtual ~BABase();
+    virtual ~BABase() {}
 
 public:
     //virtual bool checkScheme() = 0;

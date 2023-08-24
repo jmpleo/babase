@@ -13,43 +13,52 @@
 
 namespace babase {
 
+/*
+ * \brief Класс взаимодействия с файлом конфигурации.
+ *
+ * Реализует чтение, запись и изменение опций файла конфигурации соединений.
+ * Инкапсулирует состояние конфигурационного файла используя nlohmann::json.
+ */
 class ConnConfManager
 {
-    using mapped_param = std::map <std::string, std::string>;
+    using str = std::string;
+    using mapped_param = std::map <str, str>;
 
 public:
     ConnConfManager(const ConnConfManager&) = delete;
     ConnConfManager& operator=(const ConnConfManager&) = delete;
 
-    ConnConfManager(std::string defaultConfigPath);
+    ConnConfManager(str defaultConfigPath);
     ~ConnConfManager();
 
-    void        setConnectionOptions(std::string connName, std::string paramsLine);
-    void        setDevice           (std::string connName, std::string id);
-    void        removeConnection    (std::string connName);
-    std::string getConnectionOptions(std::string connName);
-    std::string getDevice           (std::string connName);
-    std::string rollupOptions       (mapped_param);
-    bool        connectionExists    (std::string connName)   { return !getConnectionOptions(connName).empty(); }
-    void        setConfigPath       (std::string configPath) { configPath_ = configPath; updateState(); }
+    void setConnectionOptions(str connName, str paramsLine);
+    void setDevice           (str connName, str id);
+    void removeConnection    (str connName);
+    str  getConnectionOptions(str connName);
+    str  getDevice           (str connName);
+    void setConfigPath       (str configPath)
+        { configPath_ = configPath; updateState(); }
 
-    mapped_param getSplitedConnectionOptions(std::string connName) { return splitOptions(getConnectionOptions(connName)); }
-    mapped_param splitOptions               (std::string optionsLine);
+    mapped_param splitOptions               (str optionsLine);
+    mapped_param getSplitedConnectionOptions(str connName)
+        { return splitOptions(getConnectionOptions(connName)); }
 
-    std::vector<std::string> getConnectionsList();
+    std::vector<str> getConnectionsList();
+
+    inline str rollupOptions(mapped_param);
 
 private:
     void updateState();
     void updateConfig();
 
 private:
-    std::string configPath_;
+    str configPath_;
     nlohmann::json jconfigState_;
 };
 
-inline std::string ConnConfManager::rollupOptions(std::map<std::string, std::string> splitedOpt)
+inline std::string ConnConfManager::rollupOptions(mapped_param splitedOpt)
 {
-    std::string paramLine;
+    str paramLine;
     for (auto &opt : splitedOpt) { paramLine += (" " + opt.first + "=" + opt.second); }
     return paramLine;
 }
