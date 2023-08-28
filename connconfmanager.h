@@ -31,6 +31,8 @@ public:
     ConnConfManager(str defaultConfigPath);
     ~ConnConfManager();
 
+    bool connectionExists(str connName) { return not getConnectionOptions(connName).empty(); }
+
     void setConnectionOptions(str connName, str paramsLine);
     void setDevice           (str connName, str id);
     void removeConnection    (str connName);
