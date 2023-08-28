@@ -26,10 +26,13 @@ public:
 
 public:
     //virtual bool checkScheme() = 0;
-    virtual bool setScheme  () = 0;
-    bool         isConnected()       { return setScheme(); }
-    std::string  connName   () const { return connName_; }
-    bool         tryConnect (std::string connName = "");
+    virtual bool setScheme() = 0;
+    virtual bool isConnected() { return setScheme(); }
+
+    bool tryConnect(std::string connName = "");
+    bool touch() { return isConnected() || tryConnect(); }
+
+    std::string connName() const { return connName_; }
 
     static ConnConfManager config;
 
