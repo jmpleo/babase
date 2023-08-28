@@ -5,17 +5,8 @@ using namespace babase;
 
 ConnConfManager BABase::config(_DEFAULT_DB_CONFIG_PATH);
 
-BABase::BABase(std::string name)
-    : connName_(name)
-    , conn_(nullptr)
-{
-}
 
-BABase::BABase(BABase&& other)
-    : connName_(std::move(other.connName_))
-    , conn_(std::move(other.conn_))
-{
-}
+
 /*
  * \brief Попытка соединения с базой.
  *

@@ -16,11 +16,11 @@ namespace babase {
 class BABase
 {
 public:
-    BABase() = delete;
     BABase(BABase const&) = delete;
 
-    BABase(std::string);
-    BABase(BABase&&);
+    BABase()                 : connName_()                           , conn_(nullptr) {}
+    BABase(std::string name) : connName_(name)                       , conn_(nullptr) {}
+    BABase(BABase&& other)   : connName_(std::move(other.connName_)) , conn_(std::move(other.conn_)) {}
 
     virtual ~BABase() {}
 
