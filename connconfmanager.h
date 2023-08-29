@@ -13,7 +13,7 @@
 
 namespace babase {
 
-/*
+/**
  * \brief Класс взаимодействия с файлом конфигурации.
  *
  * Реализует чтение, запись и изменение опций файла конфигурации соединений.
@@ -29,7 +29,7 @@ public:
     ConnConfManager& operator=(const ConnConfManager&) = delete;
 
     ConnConfManager(str defaultConfigPath);
-    ~ConnConfManager();
+    ~ConnConfManager() = default;
 
     bool connectionExists(str connName) { return not getConnectionOptions(connName).empty(); }
 

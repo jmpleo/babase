@@ -3,3 +3,4 @@ build
 *.so
 compile_commands.json
 config/configDB.json
+docs

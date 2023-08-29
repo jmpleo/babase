@@ -9,7 +9,7 @@ list(APPEND CMAKE_PREFIX_PATH "/usr/lib/pqxx")
 set(CMAKE_CXX_FLAGS "-std=gnu++20")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-set(__DB_CONFIG_PATH ${PROJECT_SOURCE_DIR}/config/configDB.json)
+set(DB_CONFIG_PATH ${PROJECT_SOURCE_DIR}/config/configDB.json)
 
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
