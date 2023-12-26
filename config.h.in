@@ -1,3 +1,0 @@
-#pragma once
-
-constexpr const char * DEFAULT_DB_CONFIG_PATH = "@DB_CONFIG_PATH@";

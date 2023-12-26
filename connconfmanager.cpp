@@ -1,6 +1,5 @@
 #include "connconfmanager.h"
 #include "logger.h"
-#include "config.h"
 #include <fstream>
 #include <nlohmann/json_fwd.hpp>
 #include <sstream>
@@ -10,9 +9,9 @@
 
 using namespace babase;
 
-ConnConfManager::ConnConfManager(std::string defaultConfigPath)
+ConnConfManager::ConnConfManager()
     : jconfigState_()
-    , configPath_(defaultConfigPath)
+    , configPath_()
 {
     updateState();
 }
@@ -24,21 +23,25 @@ ConnConfManager::ConnConfManager(std::string defaultConfigPath)
  * Обновляется при успешном обновлении состояние объекта изменяется в
  * соответствии с файлом конфигурации производится чтение файла.
  */
-void ConnConfManager::updateState()
+bool ConnConfManager::updateState()
 {
+    bool ok = false;
+
     std::ifstream f(configPath_);
     if (f.is_open() == false) {
         Logger::cout() << "Не удалось открыть файл конфигурации: " << configPath_ << std::endl;
-        return;
+        return ok;
     }
-
     try {
         f >> jconfigState_;
+        ok = true;
     }
     catch (nlohmann::json::parse_error &ex) {
         Logger::cout() << "Не удалось распарсить конфигурационный файл: " << configPath_ << " Подробнее: " << ex.byte << std::endl;
     }
+
     f.close();
+    return ok;
 }
 
 

@@ -1,8 +1,6 @@
 #pragma once
 
 
-#include "logger.h"
-#include "config.h"
 #include <map>
 #include <nlohmann/detail/iterators/iteration_proxy.hpp>
 #include <nlohmann/detail/meta/type_traits.hpp>
@@ -28,18 +26,20 @@ public:
     ConnConfManager(const ConnConfManager&) = delete;
     ConnConfManager& operator=(const ConnConfManager&) = delete;
 
-    ConnConfManager(str defaultConfigPath);
+    //ConnConfManager(str defaultConfigPath);
+    ConnConfManager();
     ~ConnConfManager() = default;
 
-    bool connectionExists(str connName) { return not getConnectionOptions(connName).empty(); }
+    bool connectionExists(str connName)
+        { return not getConnectionOptions(connName).empty(); }
 
     void setConnectionOptions(str connName, str paramsLine);
     void setDevice           (str connName, str id);
     void removeConnection    (str connName);
     str  getConnectionOptions(str connName);
     str  getDevice           (str connName);
-    void setConfigPath       (str configPath)
-        { configPath_ = configPath; updateState(); }
+    bool setConfigPath       (str configPath)
+        { configPath_ = configPath; return updateState(); }
 
     mapped_param splitOptions               (str optionsLine);
     mapped_param getSplitedConnectionOptions(str connName)
@@ -50,7 +50,7 @@ public:
     inline str rollupOptions(mapped_param);
 
 private:
-    void updateState();
+    bool updateState();
     void updateConfig();
 
 private:
